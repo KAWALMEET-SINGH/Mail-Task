@@ -1,5 +1,6 @@
+// CustomEdge.js
 import React from "react";
-// import { X } from "react-bootstrap-icons";
+import { X } from "react-bootstrap-icons";
 import {
   BezierEdge,
   EdgeLabelRenderer,
@@ -7,7 +8,7 @@ import {
   useReactFlow,
 } from "reactflow";
 
-export default function CustomEdge(props) {
+const CustomEdge = (props) => {
   const {
     id,
     sourceX,
@@ -33,22 +34,26 @@ export default function CustomEdge(props) {
     <>
       <BezierEdge {...props} />
       <EdgeLabelRenderer>
-        <button
-          aria-label="Delete Edge"
-          className="absolute text-red-500 bg-transparent rounded-full p-1 cursor-pointer"
+      <div
           style={{
-            left: `calc(${labelX}px - 50%)`,
-            top: `calc(${labelY}px - 50%)`,
-            transform: `translate(-50%, -50%)`,
-            pointerEvents: "all",
+            position: 'absolute',
+            transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+            pointerEvents: 'all',
           }}
-          onClick={() =>
-            setEdges((prevEdges) => prevEdges.filter((edge) => edge.id !== id))
-          }
         >
-          <X size={20} />
-        </button>
+          <button
+            aria-label="Delete Edge"
+            className="text-red-600 bg-transparent rounded-full p-1 cursor-pointer"
+            onClick={() =>
+              setEdges((prevEdges) => prevEdges.filter((edge) => edge.id !== id))
+            }
+          >
+            <X size={25} />
+          </button>
+        </div>
       </EdgeLabelRenderer>
     </>
   );
-}
+};
+
+export default CustomEdge;
