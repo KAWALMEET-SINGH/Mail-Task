@@ -17,7 +17,7 @@ const Dropdown = ({addLead,addColdMail,addDelay}) => {
         <button onClick={addLead} className="block w-full px-4 py-2 hover:outline-double">Lead Source</button>
       </li>
       <li>
-        <button onClick={addColdMail}  className="block  w-full px-4 py-2 hover:outline-double">Cold Email      </button>
+        <button onClick={addColdMail}  className="block  w-full px-4 py-2 hover:outline-double">Cold Email</button>
       </li>
       <li>
         <button onClick={addDelay}  className="block  w-full px-4 py-2 hover:outline-double ">Delay</button>
