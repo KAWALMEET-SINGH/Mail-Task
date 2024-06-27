@@ -7,7 +7,7 @@ import ReactFlow, {
   useEdgesState,
   useNodesState,
 } from 'reactflow';
-import 'reactflow/dist/style.css';  // Make sure to import the React Flow styles
+import 'reactflow/dist/style.css'; 
 import CustomEdge from './CustomEdge';
 import ColdMailNode from './nodes/ColdMailNode';
 import { initialEdges, initialNodes } from './Constants';
@@ -15,7 +15,6 @@ import Dropdown from './Dropdown';
 import LeadSourceNode from './nodes/LeadSourceNode';
 import DelayNode from './nodes/DelayNode';
 
-// Define node types and edge types after importing components
 const nodeTypes = {
   lead: LeadSourceNode,
   delay : DelayNode,

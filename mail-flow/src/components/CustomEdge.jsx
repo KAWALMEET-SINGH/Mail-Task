@@ -1,4 +1,3 @@
-// CustomEdge.js
 import React from "react";
 import { X } from "react-bootstrap-icons";
 import {
