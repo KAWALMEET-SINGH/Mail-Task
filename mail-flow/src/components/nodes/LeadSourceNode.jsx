@@ -1,51 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { X } from 'react-bootstrap-icons';
 import { useReactFlow } from 'reactflow';
 import CustomHandle from '../CustomHandle';
 import useToggle from '../../hooks/useToogle';
 
-const LeadSourceNode = ({ data, id, onClick }) => {
+const LeadSourceNode = ({ data, id, onNodeDataChange }) => {
   const { setNodes } = useReactFlow();
   const { name, email } = data;
 
   const [isExpanded, setIsExpanded] = useToggle(false);
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedEmail, setUpdatedEmail] = useState(email);
+  const initialDataRef = useRef({ name, email }); // Store initial data
 
   const handleDelete = () => {
     setNodes((prevNodes) => prevNodes.filter((node) => node.id !== id));
   };
 
-
   const handleUpdate = () => {
-    setNodes((prevNodes) =>
-      prevNodes.map((node) => {
-        if (node.id === id) {
-          return {
-            ...node,
-            data: {
-              ...node.data,
-              name: updatedName,
-              email: updatedEmail,
-            },
-          };
-        }
-        return node;
-      })
-    );
-    setIsExpanded(false);
+    // Ensure data has actually changed before updating
+    if (updatedName !== initialDataRef.current.name || updatedEmail !== initialDataRef.current.email) {
+      setNodes((prevNodes) =>
+        prevNodes.map((node) => {
+          if (node.id === id) {
+            return {
+              ...node,
+              data: {
+                ...node.data,
+                name: updatedName,
+                email: updatedEmail,
+              },
+            };
+          }
+          return node;
+        })
+      );
+      onNodeDataChange?.({ id, name: updatedName, email: updatedEmail }); // Optional callback for external data management
+      setIsExpanded(false);
+      initialDataRef.current = { name: updatedName, email: updatedEmail }; // Update reference for future comparisons
+    }
   };
 
   return (
-    <div  className="rounded-lg border-2 border-blue-500 flex flex-col bg-white p-1 pb-1 pl-2 gap-2 w-60">
+    <div className="rounded-lg border-2 border-blue-500 flex flex-col bg-white p-1 pb-1 pl-2 gap-2 w-60">
       <div className="flex items-center">
-        <div className="h-12 w-12">
-          <img
-            className="mix-blend-multiply h-full w-full"
-            alt="Lead Logo"
-            src="https://th.bing.com/th/id/OIP.IgHYOdhIpMEazOl5oxKfJwHaHa?w=200&h=200&c=7&r=0&o=5&dpr=1.3&pid=1.7"
-          />
-        </div>
         <div className="flex-grow">
           <p className="text-sm mt-px">{name}</p>
           <p className="text-sm mt-px">{email}</p>
