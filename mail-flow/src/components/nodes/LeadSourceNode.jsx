@@ -37,7 +37,7 @@ const LeadSourceNode = ({ data, id, onClick }) => {
   };
 
   return (
-    <div onClick={() => onClick(id)}  className="rounded-lg border-2 border-blue-500 flex flex-col bg-white p-1 pb-1 pl-2 gap-2 w-60">
+    <div  className="rounded-lg border-2 border-blue-500 flex flex-col bg-white p-1 pb-1 pl-2 gap-2 w-60">
       <div className="flex items-center">
         <div className="h-12 w-12">
           <img
